@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import ElevatorView
+from . import views
 
 urlpatterns = [
-    path("", ElevatorView.as_view(), name=""),
+    path("elevator/", views.ElevatorListView.as_view(), name=""),
+    path("elevator/<int:pk>/", views.ElevatorRetrieveView.as_view(), name=""),
+    path("systemconfig/", views.SystemConfigListView.as_view(), name=""),
+    path("systemconfig/<int:pk>/", views.SystemConfigUpdateView.as_view(), name=""),
 ]

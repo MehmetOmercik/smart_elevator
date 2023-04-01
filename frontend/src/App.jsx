@@ -1,18 +1,34 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
-import Button from "./components/Button";
-import ControlPanel from "./components/ControlPanel";
+import Elevator from "./components/Elevator";
+import { systemConfigUrl } from "./http";
+
+import axios from "axios";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [elevators, setElevators] = useState();
+	const [floors, setfloors] = useState();
 
-	return (
-		<div className='App'>
-			<ControlPanel value={1}></ControlPanel>
-			<ControlPanel value={2}></ControlPanel>
-		</div>
-	);
+	const number_elevators = [];
+
+	useEffect(() => {
+		async function fetchSystemConfig() {
+			const response = await axios.get(systemConfigUrl);
+			const no_elevators = response.data.no_elevators;
+			const no_floors = response.data.no_floors;
+			setElevators(no_elevators);
+			setfloors(no_floors);
+		}
+		fetchSystemConfig();
+	}, []);
+
+	for (let i = 1; i < elevators + 1; i++) {
+		number_elevators.push(
+			<Elevator key={i} elevatorid={i} floors={floors} />
+		);
+	}
+
+	return <div className='App'>{number_elevators}</div>;
 }
 
 export default App;
