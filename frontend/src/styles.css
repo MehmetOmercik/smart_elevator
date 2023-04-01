@@ -1,3 +1,38 @@
+/* Elevator
+=======================================*/
+.elevator-container {
+	margin-bottom: 4rem;
+	border: 1px solid gray;
+}
+
+.elevator-container__contents {
+	display: flex;
+	justify-content: space-between;
+	/* padding-top: 10px; */
+}
+
+/* Elevator Background
+=======================================*/
+.elevatorbackground-container {
+	background-color: green;
+	min-width: 70%;
+}
+
+/* Floor Indicator
+=======================================*/
+.floorindicator-container {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: center;
+	background-color: rgb(80, 80, 80);
+	padding: 1rem;
+	font-size: 2rem;
+}
+
+.floorindicator-container > * {
+	margin: 0.5rem;
+}
+
 /* Control Panel
 =======================================*/
 .controlpanel-container {
@@ -5,8 +40,8 @@
 	grid-template-columns: repeat(3, 1fr);
 	justify-content: center;
 	border: 1px solid gray;
-	margin-bottom: 20px;
 	max-width: 50%;
+	margin: 1rem;
 }
 
 .controlpanel-container > Button {
