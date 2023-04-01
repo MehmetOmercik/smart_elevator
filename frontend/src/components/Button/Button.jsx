@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { updateFloor, updateElevator } from "./ButtonSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	updateFloor,
+	updateElevator,
+	calculateFloorDifference,
+} from "./ButtonSlice";
 import { elevator } from "../../http";
 
 export default function Button(props) {
 	const dispatch = useDispatch();
+	const oldFloor = useSelector((state) => state.button.floor);
 	const floorRequest = +props.children;
 
 	const buttonHandler = () => {
 		dispatch(updateFloor(+props.children));
+		dispatch(calculateFloorDifference(oldFloor));
 		dispatch(updateElevator(props.elevatorid));
 		axios.put(`${elevator}/${props.elevatorid}/`, {
 			floor_request: floorRequest,
