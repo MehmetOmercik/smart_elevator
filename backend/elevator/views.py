@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from rest_framework.generics import ListAPIView
+from .serializers import ElevatorSerializer
+from .models import Elevator
 
-# Create your views here.
+
+class ElevatorView(ListAPIView):
+    serializer_class = ElevatorSerializer
+    queryset = Elevator.objects.all()
