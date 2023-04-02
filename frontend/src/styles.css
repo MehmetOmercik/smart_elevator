@@ -14,7 +14,7 @@
 /* Elevator Background
 =======================================*/
 .elevatorbackground-container {
-	background-color: green;
+	background-color: rgb(103, 255, 103);
 	min-width: 70%;
 }
 
@@ -27,6 +27,11 @@
 	background-color: rgb(80, 80, 80);
 	padding: 1rem;
 	font-size: 2rem;
+}
+
+.floorindicator-container__name {
+	padding-right: 10px;
+	color: rgb(255, 171, 171);
 }
 
 .floorindicator-container > * {

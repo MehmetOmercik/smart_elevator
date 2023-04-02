@@ -23,6 +23,9 @@ export default function FloorIndicator(props) {
 
 	return (
 		<div className='floorindicator-container'>
+			<p className='floorindicator-container__name'>
+				Elevator NO: {props.elevatorid}
+			</p>
 			<span>{elevator === props.elevatorid ? currentFloor : 0}</span>
 			<SlArrowUpCircle
 				color={elevator === props.elevatorid ? colorUp : ""}
