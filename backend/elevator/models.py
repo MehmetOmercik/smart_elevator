@@ -7,4 +7,8 @@ class SystemConfig(models.Model):
 
 
 class Elevator(models.Model):
+    elevator_id = models.IntegerField(verbose_name="Elevator ID")
     floor_request = models.IntegerField(verbose_name="Floor Request", default=1)
+    current_floor = models.IntegerField(
+        verbose_name="Current Floor",
+    )

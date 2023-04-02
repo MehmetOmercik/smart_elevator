@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Third-party software
     "rest_framework",
     "corsheaders",
+    "django_extensions",
     # Internal apps
     "elevator",
 ]

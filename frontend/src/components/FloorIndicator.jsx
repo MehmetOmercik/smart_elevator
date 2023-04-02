@@ -13,9 +13,9 @@ export default function FloorIndicator(props) {
 	let colorUp;
 	let colorDown;
 
-	if (floorDifference > 0) {
+	if (floorDifference > 0 && currentFloor !== floorRequest) {
 		colorUp = "green";
-	} else if (floorDifference < 0) {
+	} else if (floorDifference < 0 && currentFloor !== floorRequest) {
 		colorDown = "red";
 	} else {
 		colorUp = "";

@@ -3,6 +3,12 @@
 from django.db import migrations, models
 
 
+def create_types(apps, schema_editor):
+    db_alias = schema_editor.connection.alias
+    SystemConfig = apps.get_model("elevator", "SystemConfig")
+    SystemConfig.objects.using(db_alias).create(no_elevators=2, no_floors=9)
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -29,4 +35,5 @@ class Migration(migrations.Migration):
                 ("no_floors", models.IntegerField(verbose_name="Number of Floors")),
             ],
         ),
+        migrations.RunPython(create_types),
     ]
