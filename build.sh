@@ -18,6 +18,8 @@ source backend_venv/bin/activate
 echo Installing Dependancies
 pip3 install -r requirements.txt
 
+echo Migrating files
+python3 manage.py migrate
 
 #Building Frontend Now
 cd ../frontend
