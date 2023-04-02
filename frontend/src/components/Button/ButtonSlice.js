@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const buttonInitialState = { floor: 0, floorDifference: 0, elevator: 0 };
+const buttonInitialState = {
+	floor: 0,
+	floorDifference: 0,
+	elevator: 0,
+	currentFloor: 0,
+};
 
 export const buttonSlice = createSlice({
 	name: "button",
@@ -17,10 +22,18 @@ export const buttonSlice = createSlice({
 		updateElevator: (state, action) => {
 			state.elevator = action.payload;
 		},
+
+		currentFloor: (state, action) => {
+			state.currentFloor = action.payload;
+		},
 	},
 });
 
-export const { updateFloor, updateElevator, calculateFloorDifference } =
-	buttonSlice.actions;
+export const {
+	updateFloor,
+	updateElevator,
+	calculateFloorDifference,
+	currentFloor,
+} = buttonSlice.actions;
 
 export default buttonSlice.reducer;
