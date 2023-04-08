@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Elevator from "./components/Elevator";
+import Elevator from "./components/Elevator/Elevator";
 import { systemConfigUrl } from "./http";
 
 import axios from "axios";

@@ -1,7 +1,7 @@
 import React from "react";
-import ControlPanel from "./ControlPanel";
+import ControlPanel from "../ControlPanel/ControlPanel";
 import ElevatorBackground from "./ElevatorBackground";
-import FloorIndicator from "./FloorIndicator";
+import FloorIndicator from "../FloorIndicator/FloorIndicator";
 
 export default function Elevator(props) {
 	return (
