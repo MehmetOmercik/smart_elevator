@@ -1,6 +1,8 @@
 #!/bin/bash
+#This script kills all running servers and ports
+
 #Adding executable permissions to script
-chmod +x start.sh
+chmod +x end.sh
 
 echo Killing both servers
 
@@ -18,6 +20,8 @@ else
 fi
 
 
+
+
 #Killing backend
 echo Terminating Django backend now
 PID=$(lsof -t -i :8000)
@@ -31,5 +35,8 @@ else
   echo "No process found on port 8000"
 fi
 
+
 exit 0
+
+
 

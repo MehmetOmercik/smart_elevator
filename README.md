@@ -71,4 +71,10 @@ Go to the frontend directory (cd frontend) and type "npm test" or "yarn test". Y
 
 #### <ins>Backend</ins>
 
-Go to the Backend directory and run "pytest" into the command. To display any print messages, type "pytest -rP".
+Go to the Backend directory, activate the backend virtual environment and run "pytest" into the command line interface. To display any print messages, type "pytest -rP".
+
+## Reset
+
+To reset the repo, for MacOS and Linux run "bash destroy.sh" in the terminal in the root directory.
+
+For Windows, in the frontend simply delete node_modules and for the backend delete db.sqlite3 and the backend virtual environment.
