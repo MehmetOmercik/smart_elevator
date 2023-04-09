@@ -47,9 +47,7 @@
 	border: 1px solid gray;
 	max-width: 50%;
 	margin: 1rem;
-}
-
-.controlpanel-container > Button {
+	padding: 0px;
 }
 
 /* Elevator Button

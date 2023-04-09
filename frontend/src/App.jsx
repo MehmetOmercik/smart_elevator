@@ -9,7 +9,7 @@ function App() {
 	const [elevators, setElevators] = useState();
 	const [floors, setfloors] = useState();
 
-	const number_elevators = [];
+	const number_of_elevators = [];
 
 	useEffect(() => {
 		async function fetchSystemConfig() {
@@ -23,12 +23,14 @@ function App() {
 	}, []);
 
 	for (let i = 1; i < elevators + 1; i++) {
-		number_elevators.push(
-			<Elevator key={i} elevatorid={i} floors={floors} />
+		number_of_elevators.push(
+			<li key={i}>
+				<Elevator key={i} elevatorid={i} floors={floors} />
+			</li>
 		);
 	}
 
-	return <div className='App'>{number_elevators}</div>;
+	return <ul className='app-container'>{number_of_elevators}</ul>;
 }
 
 export default App;
