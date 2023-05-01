@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  db:
+    container_name: smart_elevator_db
+    image: "keinos/sqlite3:latest"
+    restart: always
+    volumes:
+      - data:/data
+    environment:
+      - SQLITE_DB=db.sqlite3
+    ports:
+      - "2000:2000"
+
+  backend:
+    container_name: smart_elevator_backend
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py makemigrations &&
+            python manage.py migrate --fake-initial &&
+            python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+
+  frontend:
+    container_name: smart_elevator_frontend
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    command: >
+      sh -c "npm run dev"
+    depends_on:
+      - backend
+
+volumes:
+  data:
