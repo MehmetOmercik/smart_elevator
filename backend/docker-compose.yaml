@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  backend:
+    container_name: smart_elevator_backend_container
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py makemigrations &&
+            python manage.py migrate --fake-initial &&
+            python manage.py runserver 0.0.0.0:8000"

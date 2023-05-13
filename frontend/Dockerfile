@@ -2,10 +2,10 @@ FROM node:18.15.0-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install
 
-COPY . /app
+COPY . .
 
 EXPOSE 5173

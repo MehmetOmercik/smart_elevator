@@ -7,6 +7,22 @@ There are still some bugs that need ironing out but the program is functional.
 
 ## Setup
 
+### NEW: Docker method
+
+I have now successfully dockerized the application so both Mac, Linux and Windows users can easily deploy and close the application with basic commands. To use Docker, you will first need to have Docker Desktop installed on your laptop. Click the link here if you need to install it:\
+https://www.docker.com/products/docker-desktop/
+
+After the installation is complete, simply follow the next steps.\
+<b>Note</b>: Make sure you don't have any other applications running on localhost:8000 or localhost:5173 otherwise the applications won't start properly.
+
+1. Go to the root directory and type "docker-compose up --build". This will build the image and run the applications. You can now skip to the "How to Use" section to find out how to play with the applications but read the steps for additional docker info.
+
+2. To shut down the containers just press CTRL+C in the terminal.
+
+3. To remove the containers run "docker-compose down".
+
+4. If you ever want to start the containers again and have already done step one before AND you haven't deleted the docker images then just type "docker-compose up" to restart the containers again. This is much faster because you don't need to build the image again.
+
 ### Mac And Linux
 
 For Mac and Linux users, I have created a set of bash scripts that can be used to easily setup the project.
@@ -52,6 +68,8 @@ commands
 ## How to use
 
 #### <ins>Frontend</ins>
+
+Visit http://localhost:5173/ to interact with the frontend application.
 
 Simply press the lift buttons and the floor number aswell as the arrow direction colour should update depending on the button clicked. I will
 add more features later on...
