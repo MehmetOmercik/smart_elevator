@@ -1,10 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const buttonInitialState = {
-  elevatorID: 0,
-  floor: 0,
-  floorDifference: 0,
-  currentFloor: 0,
+  elevators: [
+    {
+      elevatorID: 1,
+      floorRequest: 0,
+      oldFloor: 0,
+      // floorDifference: 0,
+      currentFloor: 0,
+    },
+    {
+      elevatorID: 2,
+      floor: 0,
+      // floorDifference: 0,
+      currentFloor: 0,
+    },
+  ],
 };
 
 export const buttonSlice = createSlice({
@@ -26,6 +37,75 @@ export const buttonSlice = createSlice({
     currentFloor: (state, action) => {
       state.currentFloor = action.payload;
     },
+
+    elevatorsManipulation: (state, action) => {
+      switch (action.payload.type) {
+        case "ADD_ELEVATOR":
+          return {
+            ...state,
+            elevators: [...state.elevators, action.payload.payload],
+          };
+        case "REMOVE_ELEVATOR":
+          return {
+            ...state,
+            elevators: state.elevators.filter(
+              (elevator) => elevator.elevatorID !== action.payload.payload
+            ),
+          };
+        case "UPDATE_ELEVATOR_CF":
+          // const elevator = state.elevators.find(
+          //   (item) => item.elevatorID === action.payload.payload
+          // );
+          const { elevatorID: elevatorIDCF, currentFloor } =
+            action.payload.payload;
+          return {
+            ...state,
+            elevators: state.elevators.map((elevator) => {
+              if (elevator.elevatorID === elevatorIDCF) {
+                return {
+                  ...elevator,
+                  currentFloor: currentFloor,
+                };
+              }
+              return elevator;
+            }),
+          };
+
+        case "UPDATE_ELEVATOR_OF":
+          const { elevatorID: elevatorIDOF, oldFloor } = action.payload.payload;
+          return {
+            ...state,
+            elevators: state.elevators.map((elevator) => {
+              if (elevator.elevatorID === elevatorIDOF) {
+                return {
+                  ...elevator,
+                  oldFloor,
+                };
+              }
+              return elevator;
+            }),
+          };
+
+        case "UPDATE_ELEVATOR_FR":
+          const { elevatorID: elevatorIDFR, floorRequest } =
+            action.payload.payload;
+          return {
+            ...state,
+            elevators: state.elevators.map((elevator) => {
+              if (elevator.elevatorID === elevatorIDFR) {
+                return {
+                  ...elevator,
+                  floorRequest,
+                };
+              }
+              return elevator;
+            }),
+          };
+
+        default:
+          return state;
+      }
+    },
   },
 });
 
@@ -34,6 +114,7 @@ export const {
   updateElevatorID,
   calculateFloorDifference,
   currentFloor,
+  elevatorsManipulation,
 } = buttonSlice.actions;
 
 export default buttonSlice.reducer;

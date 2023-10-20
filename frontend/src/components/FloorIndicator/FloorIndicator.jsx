@@ -6,8 +6,13 @@ export default function FloorIndicator(props) {
   const floorRequest = useSelector((state) => state.button.floor);
   const floorDifference = useSelector((state) => state.button.floorDifference);
   const currentFloor = useSelector((state) => state.button.currentFloor);
-  const oldFloor = floorRequest - floorDifference;
   const elevatorID = useSelector((state) => state.button.elevatorID);
+  const elevator = useSelector((state) =>
+    state.button.elevators.find(
+      (elevator) => elevator.elevatorID === props.elevatorid
+    )
+  );
+
   let colorUp;
   let colorDown;
 
@@ -24,17 +29,15 @@ export default function FloorIndicator(props) {
       <p className="floorindicator-container__name">
         Elevator NO: {props.elevatorid}
       </p>
-      <span data-testid="floor-number">
-        {elevatorID === props.elevatorid ? currentFloor : 0}
-      </span>
+      <span data-testid="floor-number">{elevator?.currentFloor}</span>
       <SlArrowUpCircle
         data-testid="up-arrow"
-        color={elevatorID === props.elevatorid ? colorUp : ""}
+        color={elevator.elevatorID === props.elevatorid ? colorUp : ""}
         fontSize="3rem"
       />
       <SlArrowDownCircle
         data-testid="down-arrow"
-        color={elevatorID === props.elevatorid ? colorDown : ""}
+        color={elevator.elevatorID === props.elevatorid ? colorDown : ""}
         fontSize="3rem"
       />
     </div>

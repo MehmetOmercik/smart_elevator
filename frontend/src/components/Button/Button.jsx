@@ -6,17 +6,22 @@ import {
   updateElevatorID,
   calculateFloorDifference,
   currentFloor,
+  elevatorsManipulation,
 } from "./ButtonSlice";
-import { elevator } from "../../http";
+import { elevatorURL } from "../../http";
 
 export default function Button(props) {
   const dispatch = useDispatch();
-  const oldFloor = useSelector((state) => state.button.floor);
-  const floorRequest = +props.children;
+  const elevator = useSelector((state) =>
+    state.button.elevators.find(
+      (elevator) => elevator.elevatorID === props.elevatorid
+    )
+  );
+  const oldFloor = elevator.floorRequest;
 
   const checkElevatorObjectExists = async (id) => {
     try {
-      const response = await axios.get(`${elevator}/${id}`);
+      const response = await axios.get(`${elevatorURL}/${id}`);
       return response.data;
     } catch (error) {
       if (error.response.status === 404) {
@@ -27,57 +32,85 @@ export default function Button(props) {
     }
   };
   const updateObject = async (id, data) => {
-    const response = await axios.put(`${elevator}/${id}/`, data);
+    const response = await axios.put(`${elevatorURL}/${id}/`, data);
     return response.data;
   };
   const createObject = async (data) => {
-    const response = await axios.post(`${elevator}/`, data);
+    const response = await axios.post(`${elevatorURL}/`, data);
     return response.data;
   };
   const buttonHandler = async () => {
-    dispatch(updateFloor(+props.children));
-    dispatch(calculateFloorDifference(oldFloor));
-    dispatch(updateElevatorID(props.elevatorid));
+    const floorRequest = +props.children;
+    console.log(oldFloor);
+    console.log(floorRequest);
+    // dispatch(
+    //   elevatorsManipulation({
+    //     type: "UPDATE_ELEVATOR_OF",
+    //     payload: {
+    //       elevatorID: props.elevatorid,
+    //       oldFloor: oldFloor,
+    //     },
+    //   })
+    // );
 
-    const elevatorObjectData = {
-      elevator_id: props.elevatorid,
-      floor_request: floorRequest,
-      current_floor: floorRequest,
-    };
+    dispatch(
+      elevatorsManipulation({
+        type: "UPDATE_ELEVATOR_FR",
+        payload: {
+          elevatorID: props.elevatorid,
+          floorRequest: floorRequest,
+        },
+      })
+    );
 
     if (floorRequest > oldFloor) {
       for (let i = oldFloor + 1; i <= floorRequest; i++) {
         setTimeout(() => {
-          dispatch(currentFloor(i));
-          axios.patch(`${elevator}/${props.elevatorid}/`, {
-            current_floor: i,
-          });
+          dispatch(
+            elevatorsManipulation({
+              type: "UPDATE_ELEVATOR_CF",
+              payload: { elevatorID: props.elevatorid, currentFloor: i },
+            })
+          );
+
+          // axios.patch(`${elevator}/${props.elevatorid}/`, {
+          //   current_floor: i,
+          // });
         }, 800 * i);
       }
-    } else if (floorRequest < oldFloor) {
+    } else {
       for (let j = oldFloor - 1; j >= floorRequest; j--) {
         setTimeout(() => {
-          dispatch(currentFloor(oldFloor - j));
-          axios.patch(`${elevator}/${props.elevatorid}/`, {
-            current_floor: oldFloor - j,
-          });
+          dispatch(
+            elevatorsManipulation({
+              type: "UPDATE_ELEVATOR_CF",
+              payload: {
+                elevatorID: props.elevatorid,
+                currentFloor: oldFloor - j,
+              },
+            })
+          );
+          // axios.patch(`${elevatorURL}/${props.elevatorid}/`, {
+          //   current_floor: elevator.oldFloor - j,
+          // });
         }, 800 * j);
       }
     }
-    const elevatorObjectExists = await checkElevatorObjectExists(
-      props.elevatorid
-    );
 
-    if (elevatorObjectExists) {
-      const updatedObject = await updateObject(
-        props.elevatorid,
-        elevatorObjectData
-      );
-      console.log("Object updated:", updatedObject);
-    } else {
-      const createdObject = await createObject(elevatorObjectData);
-      console.log("Object created:", createdObject);
-    }
+    // const elevatorObjectExists = await checkElevatorObjectExists(
+    //   props.elevatorid
+    // );
+
+    // if (elevatorObjectExists) {
+    //   const updatedObject = await updateObject(
+    //     props.elevatorid,
+    //     elevatorObjectData
+    //   );
+    //   console.log("Object updated:", updatedObject);
+    // } else {
+    //   const createdObject = await createObject(elevatorObjectData);
+    //   console.log("Object created:", createdObject);
+    // }
   };
   return (
     <button
