@@ -17,7 +17,7 @@ export default function Button(props) {
       (elevator) => elevator.elevatorID === props.elevatorid
     )
   );
-  const oldFloor = elevator.floorRequest;
+  const oldFloor = elevator.floorRequest; //Stores the old floor data
 
   const checkElevatorObjectExists = async (id) => {
     try {
@@ -39,19 +39,8 @@ export default function Button(props) {
     const response = await axios.post(`${elevatorURL}/`, data);
     return response.data;
   };
-  const buttonHandler = async () => {
-    const floorRequest = +props.children;
-    console.log(oldFloor);
-    console.log(floorRequest);
-    // dispatch(
-    //   elevatorsManipulation({
-    //     type: "UPDATE_ELEVATOR_OF",
-    //     payload: {
-    //       elevatorID: props.elevatorid,
-    //       oldFloor: oldFloor,
-    //     },
-    //   })
-    // );
+  const buttonHandler = async (e) => {
+    const floorRequest = +e.target.innerText;
 
     dispatch(
       elevatorsManipulation({
@@ -63,6 +52,12 @@ export default function Button(props) {
       })
     );
 
+    const elevatorObjectData = {
+      elevator_id: props.elevatorid,
+      floor_request: floorRequest,
+      current_floor: floorRequest,
+    };
+
     if (floorRequest > oldFloor) {
       for (let i = oldFloor + 1; i <= floorRequest; i++) {
         setTimeout(() => {
@@ -73,9 +68,9 @@ export default function Button(props) {
             })
           );
 
-          // axios.patch(`${elevator}/${props.elevatorid}/`, {
-          //   current_floor: i,
-          // });
+          axios.patch(`${elevatorURL}/${props.elevatorid}/`, {
+            current_floor: i,
+          });
         }, 800 * i);
       }
     } else {
@@ -90,33 +85,32 @@ export default function Button(props) {
               },
             })
           );
-          // axios.patch(`${elevatorURL}/${props.elevatorid}/`, {
-          //   current_floor: elevator.oldFloor - j,
-          // });
+          axios.patch(`${elevatorURL}/${props.elevatorid}/`, {
+            current_floor: oldFloor - j,
+          });
         }, 800 * j);
       }
     }
 
-    // const elevatorObjectExists = await checkElevatorObjectExists(
-    //   props.elevatorid
-    // );
+    const elevatorObjectExists = await checkElevatorObjectExists(
+      props.elevatorid
+    );
 
-    // if (elevatorObjectExists) {
-    //   const updatedObject = await updateObject(
-    //     props.elevatorid,
-    //     elevatorObjectData
-    //   );
-    //   console.log("Object updated:", updatedObject);
-    // } else {
-    //   const createdObject = await createObject(elevatorObjectData);
-    //   console.log("Object created:", createdObject);
-    // }
+    if (elevatorObjectExists) {
+      const updatedObject = await updateObject(
+        props.elevatorid,
+        elevatorObjectData
+      );
+      console.log("Object updated:", updatedObject);
+    } else {
+      const createdObject = await createObject(elevatorObjectData);
+      console.log("Object created:", createdObject);
+    }
   };
   return (
     <button
       className="elevator-button"
-      onClick={buttonHandler}
-      elevatorid={props.elevatorid}
+      onClick={(event) => buttonHandler(event)}
     >
       {props.children}
     </button>

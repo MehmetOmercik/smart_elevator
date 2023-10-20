@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SlArrowUpCircle, SlArrowDownCircle } from "react-icons/sl";
 import { useSelector } from "react-redux";
 
 export default function FloorIndicator(props) {
-  const floorRequest = useSelector((state) => state.button.floor);
-  const floorDifference = useSelector((state) => state.button.floorDifference);
-  const currentFloor = useSelector((state) => state.button.currentFloor);
-  const elevatorID = useSelector((state) => state.button.elevatorID);
   const elevator = useSelector((state) =>
     state.button.elevators.find(
       (elevator) => elevator.elevatorID === props.elevatorid
@@ -16,9 +12,9 @@ export default function FloorIndicator(props) {
   let colorUp;
   let colorDown;
 
-  if (floorDifference > 0 && currentFloor !== floorRequest) {
+  if (elevator.floorRequest > elevator.currentFloor) {
     colorUp = "green";
-  } else if (floorDifference < 0 && currentFloor !== floorRequest) {
+  } else if (elevator.floorRequest < elevator.currentFloor) {
     colorDown = "red";
   } else {
     colorUp = "";

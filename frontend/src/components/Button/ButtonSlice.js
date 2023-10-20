@@ -11,7 +11,8 @@ const buttonInitialState = {
     },
     {
       elevatorID: 2,
-      floor: 0,
+      floorRequest: 0,
+      oldFloor: 0,
       // floorDifference: 0,
       currentFloor: 0,
     },
@@ -40,18 +41,23 @@ export const buttonSlice = createSlice({
 
     elevatorsManipulation: (state, action) => {
       switch (action.payload.type) {
-        case "ADD_ELEVATOR":
+        case "RESET_ELEVATORS":
           return {
             ...state,
-            elevators: [...state.elevators, action.payload.payload],
+            elevators: action.payload.payload,
           };
-        case "REMOVE_ELEVATOR":
-          return {
-            ...state,
-            elevators: state.elevators.filter(
-              (elevator) => elevator.elevatorID !== action.payload.payload
-            ),
-          };
+        // case "ADD_ELEVATOR":
+        //   return {
+        //     ...state,
+        //     elevators: [...state.elevators, action.payload.payload],
+        //   };
+        // case "REMOVE_ELEVATOR":
+        //   return {
+        //     ...state,
+        //     elevators: state.elevators.filter(
+        //       (elevator) => elevator.elevatorID !== action.payload.payload
+        //     ),
+        //   };
         case "UPDATE_ELEVATOR_CF":
           // const elevator = state.elevators.find(
           //   (item) => item.elevatorID === action.payload.payload
@@ -79,7 +85,7 @@ export const buttonSlice = createSlice({
               if (elevator.elevatorID === elevatorIDOF) {
                 return {
                   ...elevator,
-                  oldFloor,
+                  oldFloor: oldFloor,
                 };
               }
               return elevator;
@@ -95,7 +101,7 @@ export const buttonSlice = createSlice({
               if (elevator.elevatorID === elevatorIDFR) {
                 return {
                   ...elevator,
-                  floorRequest,
+                  floorRequest: floorRequest,
                 };
               }
               return elevator;

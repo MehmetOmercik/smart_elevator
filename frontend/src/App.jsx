@@ -4,20 +4,43 @@ import Elevator from "./components/Elevator/Elevator";
 import { systemConfigUrl } from "./http";
 
 import axios from "axios";
+import { elevatorsManipulation } from "./components/Button/ButtonSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
   const [elevators, setElevators] = useState();
   const [floors, setfloors] = useState();
-
-  const number_of_elevators = [];
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    const elevatorObject = {
+      elevatorID: 1,
+      floorRequest: 0,
+      oldFloor: 0,
+      currentFloor: 0,
+    };
     async function fetchSystemConfig() {
       const response = await axios.get(systemConfigUrl);
       const no_elevators = response.data.no_elevators;
       const no_floors = response.data.no_floors;
       setElevators(no_elevators);
       setfloors(no_floors);
+
+      //Used to populate redux with elevator objects representing each one
+      const elevatorReduxConfig = new Array(no_elevators)
+        .fill()
+        .map((_, index) => ({
+          elevatorID: index + 1,
+          floorRequest: 0,
+          oldFloor: 0,
+          currentFloor: 0,
+        }));
+      dispatch(
+        elevatorsManipulation({
+          type: "RESET_ELEVATORS",
+          payload: elevatorReduxConfig,
+        })
+      );
     }
     fetchSystemConfig();
   }, []);
