@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateFloor,
-  updateElevator,
+  updateElevatorID,
   calculateFloorDifference,
   currentFloor,
 } from "./ButtonSlice";
@@ -34,11 +34,10 @@ export default function Button(props) {
     const response = await axios.post(`${elevator}/`, data);
     return response.data;
   };
-
   const buttonHandler = async () => {
     dispatch(updateFloor(+props.children));
     dispatch(calculateFloorDifference(oldFloor));
-    dispatch(updateElevator(props.elevatorid));
+    dispatch(updateElevatorID(props.elevatorid));
 
     const elevatorObjectData = {
       elevator_id: props.elevatorid,
