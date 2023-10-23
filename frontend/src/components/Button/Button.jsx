@@ -11,7 +11,7 @@ export default function Button(props) {
       (elevator) => elevator.elevatorID === props.elevatorid
     )
   );
-  const oldFloor = elevator.floorRequest; //Stores the old floor data
+  const oldFloor = elevator?.floorRequest; //Stores the old floor data
 
   const checkElevatorObjectExists = async (id) => {
     try {

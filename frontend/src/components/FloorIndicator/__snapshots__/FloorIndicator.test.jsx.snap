@@ -15,9 +15,7 @@ exports[`Floor Indicator tests > snapshot 1`] = `
         </p>
         <span
           data-testid="floor-number"
-        >
-          0
-        </span>
+        />
         <svg
           color=""
           data-testid="up-arrow"
@@ -35,7 +33,6 @@ exports[`Floor Indicator tests > snapshot 1`] = `
           />
         </svg>
         <svg
-          color=""
           data-testid="down-arrow"
           fill="currentColor"
           font-size="3rem"
@@ -64,9 +61,7 @@ exports[`Floor Indicator tests > snapshot 1`] = `
       </p>
       <span
         data-testid="floor-number"
-      >
-        0
-      </span>
+      />
       <svg
         color=""
         data-testid="up-arrow"
@@ -84,7 +79,6 @@ exports[`Floor Indicator tests > snapshot 1`] = `
         />
       </svg>
       <svg
-        color=""
         data-testid="down-arrow"
         fill="currentColor"
         font-size="3rem"

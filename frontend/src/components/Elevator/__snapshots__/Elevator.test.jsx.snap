@@ -18,9 +18,7 @@ exports[`Elevator tests > snapshot test 1`] = `
           </p>
           <span
             data-testid="floor-number"
-          >
-            0
-          </span>
+          />
           <svg
             color=""
             data-testid="up-arrow"
@@ -38,7 +36,6 @@ exports[`Elevator tests > snapshot test 1`] = `
             />
           </svg>
           <svg
-            color=""
             data-testid="down-arrow"
             fill="currentColor"
             font-size="3rem"
@@ -88,9 +85,7 @@ exports[`Elevator tests > snapshot test 1`] = `
         </p>
         <span
           data-testid="floor-number"
-        >
-          0
-        </span>
+        />
         <svg
           color=""
           data-testid="up-arrow"
@@ -108,7 +103,6 @@ exports[`Elevator tests > snapshot test 1`] = `
           />
         </svg>
         <svg
-          color=""
           data-testid="down-arrow"
           fill="currentColor"
           font-size="3rem"
