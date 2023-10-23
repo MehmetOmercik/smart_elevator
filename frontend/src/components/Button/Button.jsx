@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateFloor,
-  updateElevatorID,
-  calculateFloorDifference,
-  currentFloor,
-  elevatorsManipulation,
-} from "./ButtonSlice";
+import { elevatorsManipulation } from "./ButtonSlice";
 import { elevatorURL } from "../../http";
 
 export default function Button(props) {
@@ -31,17 +25,19 @@ export default function Button(props) {
       }
     }
   };
+
   const updateObject = async (id, data) => {
     const response = await axios.put(`${elevatorURL}/${id}/`, data);
     return response.data;
   };
+
   const createObject = async (data) => {
     const response = await axios.post(`${elevatorURL}/`, data);
     return response.data;
   };
+
   const buttonHandler = async (e) => {
     const floorRequest = +e.target.innerText;
-
     dispatch(
       elevatorsManipulation({
         type: "UPDATE_ELEVATOR_FR",

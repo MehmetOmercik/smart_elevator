@@ -13,12 +13,6 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elevatorObject = {
-      elevatorID: 1,
-      floorRequest: 0,
-      oldFloor: 0,
-      currentFloor: 0,
-    };
     async function fetchSystemConfig() {
       const response = await axios.get(systemConfigUrl);
       const no_elevators = response.data.no_elevators;
