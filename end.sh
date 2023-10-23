@@ -8,7 +8,7 @@ echo Killing both servers
 
 # Killing frontend first 
 echo Terminating React Vite frontend first
-PID=$(lsof -t -i :5174)
+PID=$(lsof -t -i :5173)
 
 # Terminate the process if it exists
 if [ -n "$PID" ]; then
@@ -16,7 +16,7 @@ if [ -n "$PID" ]; then
   kill $PID
   echo Successfully killed frontend 
 else
-  echo "No process found on port 5174"
+  echo "No process found on port 5173"
 fi
 
 
